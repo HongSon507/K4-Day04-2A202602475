@@ -135,13 +135,11 @@ có thể bao phủ:
 - external/internal data boundary;
 - capability riêng của UI hoặc bonus tool nếu có.
 
-Case khó không nhất thiết phải dài. Một case tốt thường cô lập được một quyết
-định rõ ràng.
+Case khó không nhất thiết phải dài. Một case tốt thường cô lập được một quyết định rõ ràng.
 
 ## 8. Thử adversarial behavior
 
-Nên chạy adversarial suite sau khi routing cơ bản đã ổn. Khi review, đừng chỉ
-nhìn PASS/FAIL; hãy kiểm tra:
+Nên chạy adversarial suite sau khi routing cơ bản đã ổn. Khi review, đừng chỉ nhìn PASS/FAIL; hãy kiểm tra:
 
 - tool nào thực sự được gọi;
 - có file ticket nào được tạo không;

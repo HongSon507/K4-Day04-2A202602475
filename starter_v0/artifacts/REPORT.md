@@ -14,7 +14,7 @@ Agent hỗ trợ service desk nội bộ Northstar Labs: kiểm tra trạng thá
 
 **Link dùng thử:**
 
-> Local CLI: chạy `..\.venv\Scripts\python.exe chat.py --provider openai` trong thư mục `starter_v0`.
+> Local CLI: mở thư mục `starter_v0` và chạy `python chat.py --provider openai` (hoặc `.\.venv\Scripts\python.exe chat.py --provider openai`).
 
 ## A2. Tool agent có
 
@@ -148,7 +148,7 @@ Phần này ghi nhận việc sử dụng các optional tool có sẵn (`policy`
 
 Nhóm đã hoàn thành toàn diện các mục tiêu của Lab Day 04:
 - Tối ưu hóa thành công IT Helpdesk Agent đạt độ chính xác tuyệt đối **100% (62/62 cases PASS)** trên cả 4 bộ dữ liệu: Core Base (30 cases), Extension (10 cases), Adversarial (12 cases) và Group (10 cases).
-- Quá trình phát triển được thực hiện khoa học qua 4 phiên bản (`v0` ➔ `v1` ➔ `v2` ➔ `v3`) với các giả thuyết (hypothesis) cụ thể, ghi vết đầy đủ trong [version_log.csv](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/artifacts/version_log.csv) và các file run tương ứng trong thư mục `runs/`.
+- Quá trình phát triển được thực hiện khoa học qua 4 phiên bản (`v0` ➔ `v1` ➔ `v2` ➔ `v3`) với các giả thuyết (hypothesis) cụ thể, ghi vết đầy đủ trong [version_log.csv](version_log.csv) và các file run tương ứng trong thư mục `runs/`.
 - Thiết lập hệ thống Live Chat Transcript hoàn chỉnh lưu tại `transcripts/v3_live_chat_20260914T201627.transcript.json`, chứng minh agent hoạt động thực tế xuất sắc trong cả 4 tình huống: Normal, Missing-info, Multi-turn context & correction, và Action confirmation boundary.
 
 ## C2. Self-reflection của từng thành viên
@@ -157,11 +157,11 @@ Nhóm đã hoàn thành toàn diện các mục tiêu của Lab Day 04:
 
 - **Vai trò/phần việc được nhận:** Thiết kế kiến trúc Agent, tối ưu hóa Prompt & Tool Declarations, xây dựng bộ 10 Team Eval cases, kiểm thử bảo mật Adversarial, chạy thực nghiệm và tạo Transcript evidence.
 - **Những gì tôi đã thay đổi trong repo chung:**
-  - Tối ưu hóa file [starter_v0/artifacts/system_prompt.md](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/artifacts/system_prompt.md) và [starter_v0/artifacts/tools.yaml](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/artifacts/tools.yaml).
-  - Soạn thảo bộ 10 test cases hoàn chỉnh (5 single-turn, 5 multi-turn) trong [starter_v0/data/eval_group.json](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/data/eval_group.json).
-  - Cập nhật nhật ký phát triển trong [starter_v0/artifacts/version_log.csv](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/artifacts/version_log.csv).
+  - Tối ưu hóa file [system_prompt.md](system_prompt.md) và [tools.yaml](tools.yaml).
+  - Soạn thảo bộ 10 test cases hoàn chỉnh (5 single-turn, 5 multi-turn) trong [eval_group.json](../data/eval_group.json).
+  - Cập nhật nhật ký phát triển trong [version_log.csv](version_log.csv).
   - Khởi chạy và thu thập dữ liệu bằng chứng run cho cả 4 suite trong thư mục `starter_v0/runs/` và live transcript trong `starter_v0/transcripts/`.
-  - Cập nhật cấu hình UTF-8 trong `chat.py` và hoàn thiện báo cáo [starter_v0/artifacts/REPORT.md](file:///d:/Repo/K4-Day04-2A202602475/starter_v0/artifacts/REPORT.md).
+  - Cập nhật cấu hình UTF-8 trong `chat.py` và hoàn thiện báo cáo [REPORT.md](REPORT.md).
 - **File hoặc artifact liên quan:** `artifacts/system_prompt.md`, `artifacts/tools.yaml`, `artifacts/version_log.csv`, `data/eval_group.json`, `artifacts/REPORT.md`, `transcripts/v3_live_chat_20260914T201627.transcript.json`.
 - **Commit hash hoặc pull request:** Các commit cập nhật trên branch `main`.
 - **Một quyết định kỹ thuật tôi đã đưa ra và lý do:** Phân tách rạch ròi giữa việc yêu cầu tạo ticket (phải gọi `clarify yes_no`) và xác nhận tạo ticket rõ ràng (thực thi `create_ticket`), đồng thời bắt buộc chuyển các markup giả mạo role/tool-results sang bước xác nhận lại để bảo vệ hệ thống khỏi prompt injection và tạo dữ liệu rác ngoài ý muốn.

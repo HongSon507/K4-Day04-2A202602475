@@ -18,14 +18,14 @@ tools:
       required: [question]
 
   - name: search_kb
-    description: "Tìm hướng dẫn hỗ trợ kỹ thuật."
+    description: "Tìm hướng dẫn hỗ trợ kỹ thuật trong knowledge base nội bộ. Luôn chọn đúng chuyên mục category tương ứng với chủ đề của câu hỏi."
     parameters:
       type: object
       properties:
         query: {type: string, default: "", description: "Nội dung cần tìm"}
-        category: {type: string, enum: [all, vpn, email, wifi, printing, account, security, hardware, software, meeting_room], default: "all", description: "Nhóm hướng dẫn"}
+        category: {type: string, enum: [all, vpn, email, wifi, printing, account, security, hardware, software, meeting_room], description: "Bắt buộc chọn đúng nhóm chuyên mục kỹ thuật phù hợp với yêu cầu (ví dụ: 'email' cho Outlook/mail, 'vpn' cho mạng VPN, 'wifi' cho Wi-Fi, 'printing' cho máy in). Không dùng 'all' khi chủ đề đã rõ ràng."}
         top_k: {type: integer, default: 3, description: "Số kết quả"}
-      required: [query]
+      required: [query, category]
 
   - name: check_service_status
     description: "Kiểm tra trạng thái một dịch vụ."
@@ -37,20 +37,20 @@ tools:
       required: [service]
 
   - name: inspect_device
-    description: "Kiểm tra thông tin và chẩn đoán thiết bị."
+    description: "Kiểm tra thông tin chi tiết và chẩn đoán trạng thái kỹ thuật của một thiết bị cụ thể qua mã tài sản asset_id (như LT-xxx, DT-xxx, MB-xxx). Không dùng tool này để tra cứu danh sách thiết bị của nhân viên và không truyền mã nhân viên EMP vào asset_id."
     parameters:
       type: object
       properties:
-        asset_id: {type: string, description: "Mã tài sản"}
+        asset_id: {type: string, description: "Mã tài sản/thiết bị cụ thể (ví dụ: LT-204, DT-031). Không dùng mã nhân viên."}
         check: {type: string, enum: [all, network, vpn, security, hardware, software], default: "all", description: "Nhóm kiểm tra"}
       required: [asset_id]
 
   - name: lookup_user
-    description: "Tra cứu người dùng trong danh bạ hỗ trợ."
+    description: "Tra cứu hồ sơ nhân viên trong danh bạ hỗ trợ bằng mã nhân viên (EMP-xxx), bao gồm thông tin tài khoản, phòng ban và danh sách các thiết bị được cấp (assigned devices). Khi người dùng hỏi thông tin nhân viên hoặc thiết bị được cấp của nhân viên, chỉ dùng tool này; không gọi inspect_device."
     parameters:
       type: object
       properties:
-        employee_id: {type: string, description: "Mã nhân viên"}
+        employee_id: {type: string, description: "Mã nhân viên (ví dụ: EMP-1003)"}
       required: [employee_id]
 
   - name: format_incident_report

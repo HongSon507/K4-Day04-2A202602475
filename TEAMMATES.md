@@ -7,6 +7,7 @@
 | **Trần Hồng Sơn** | 2A202602475 | `HongSon507` | **Captain (Nhóm trưởng)** |
 | **Đinh Đức Thái** | 2A202602648 | `ducthais` | **Member** |
 | **Đàm Quang Sơn** | 2A202602868 | `KuanqXol` | **Member** |
+| **Hoàng Trung Hiếu** | 2A202602945 | `hoangtrunghieu0025-lab` | **Member — UI/Frontend** |
 
 ---
 
@@ -56,16 +57,20 @@ Quy trình phát triển và tối ưu hóa hệ thống IT Helpdesk Agent đư�
 
 ---
 
-### Giai đoạn 4: Phiên bản `v3` (Mở rộng tính năng, Bảo mật Adversarial & Báo cáo)
-* **Thành viên phụ trách:** Đàm Quang Sơn (`KuanqXol`) & Cả nhóm
+### Giai đoạn 4: Phiên bản `v3` (Mở rộng tính năng, Bảo mật Adversarial, UI & Báo cáo)
+* **Thành viên phụ trách:** Đàm Quang Sơn (`KuanqXol`), Hoàng Trung Hiếu (`hoangtrunghieu0025-lab`) & Cả nhóm
 * **Nội dung thực hiện:**
   - Mở rộng phạm vi cho các tool nâng cao: `policy` (tra cứu chính sách IT nội bộ), `create_ticket` (tạo ticket sau xác nhận), `search_device_info` (tìm kiếm thông tin thiết bị công khai trên web).
   - Kiểm thử và đánh giá bộ an toàn bảo mật `eval_adversarial.json` (chống prompt injection, không rò rỉ dữ liệu nội bộ ra web search).
   - Thiết kế bộ 10 test cases riêng của nhóm trong `starter_v0/data/eval_group.json` (5 single-turn và 5 multi-turn).
+  - Xây dựng giao diện Streamlit trong `starter_v0/app.py`, tái sử dụng `run_model_tool_loop` và hiển thị user request, final response, tool name, args, result/error, round và status.
+  - Tạo `starter_v0/index.html` làm trang giới thiệu giao diện, bổ sung responsive layout và liên kết tới live console.
+  - Tích hợp ghi transcript JSON có artifact version, prompt/tools hash và đường dẫn evidence để hỗ trợ demo, audit và kiểm tra hành vi tool.
   - Hoàn thiện tài liệu báo cáo nghiệm thu `starter_v0/artifacts/REPORT.md` và kiểm tra `version_log.csv`.
 * **Commit đại diện:**
   - `feat(eval): add team eval group cases and adversarial evidence`
   - `docs(report): complete final report and submission deliverables`
+  - `7c71eb7: Add helpdesk UI and update report`
 
 ---
 

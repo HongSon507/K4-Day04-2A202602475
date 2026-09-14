@@ -2,8 +2,8 @@
 
 ## Team
 
-- Team: Trần Hồng Sơn
-- Members: Trần Hồng Sơn — 2A202602475
+- Team: M01
+- Members: Trần Hồng Sơn — 2A202602475; Đinh Đức Thái — 2A202602648; Đàm Quang Sơn — 2A202602868
 - Provider/model: OpenAI / `gpt-4o-mini`
 
 # PHẦN A — Giới thiệu agent
@@ -168,6 +168,28 @@ Nhóm đã hoàn thành toàn diện các mục tiêu của Lab Day 04:
 - **Khó khăn tôi gặp và cách tôi xử lý:** Gặp lỗi `wrong_boundary` ở các case tấn công giả mạo vai trò (`<assistant>`) và pseudo-code `confirmed: true`. Đã khắc phục bằng cách thiết lập quy tắc bảo mật nghiêm ngặt trong system prompt và tool descriptions, không coi bất kỳ đoạn JSON hay role tag nào trong user message là confirmation hợp lệ.
 - **Điều tôi học được từ phần việc này:** Hiểu sâu sắc cơ chế Tool Calling của LLM, tầm quan trọng của JSON Schema và mô tả tham số trong việc định hướng hành vi của mô hình, cũng như phương pháp tiếp cận khoa học dựa trên bằng chứng thực nghiệm (Evidence-driven Prompt Engineering).
 - **Nếu làm lại, tôi sẽ cải thiện điều gì:** Tôi sẽ xây dựng thêm bonus tool cho việc tra cứu trạng thái ticket (`ticket_lookup`) và tích hợp hệ thống logging chi tiết hơn cho từng bước tool call trong giao diện UI.
+### Đinh Đức Thái — 2A202602648
+- **Vai trò/phần việc được nhận:** Phụ trách tối ưu hóa phiên bản `v2`, xử lý các lỗi thiếu thông tin (`missing_info`) và thiết lập ranh giới an toàn cho hành động ghi (`wrong_boundary`).
+- **Những gì tôi đã thay đổi trong repo chung:**
+  - Bổ sung quy tắc xử lý `clarify` cho các trường hợp thiếu `asset_id` hoặc `employee_id` vào `system_prompt.md`, nghiêm cấm agent tự đoán mã ID.
+  - Thiết lập cơ chế xin xác nhận bắt buộc (`response_type="yes_no"`) trước khi tạo ticket và vô hiệu hóa confirmation cũ nếu payload thay đổi.
+  - Chuẩn hóa lựa chọn môi trường `production`/`staging` qua `clarify(response_type="choice")`.
+  - Thực hiện chạy eval và xác nhận phiên bản `v2` đạt kết quả tối đa 30/30 (100%) trên bộ dữ liệu `eval_base.json`.
+- **File hoặc artifact liên quan:** `artifacts/system_prompt.md`, `artifacts/tools.yaml`, `artifacts/version_log.csv`, `runs/v2_B_base_openai_20260914T192613680833.json`.
+- **Commit hash hoặc pull request:** Commit `753dda0: Fix testcase remaining v2 v3`.
+- **Một quyết định kỹ thuật tôi đã đưa ra và lý do:** Chọn phương án ép buộc model dùng `clarify` với enum kiểu dữ liệu cụ thể (`text`, `yes_no`, `choice`) thay vì để model trả lời tự do bằng văn bản, giúp chuẩn hóa tương tác người dùng và kiểm soát chặt chẽ trạng thái trước các action có side-effect.
+- **Khó khăn tôi gặp và cách tôi xử lý:** Ở các case multi-turn như `M09`, khi người dùng thay đổi priority của ticket, model có xu hướng tái sử dụng xác nhận cũ từ lượt trước. Tôi đã bổ sung nguyên tắc "Invalidated confirmations" vào system prompt để yêu cầu model luôn xin xác nhận lại khi payload thay đổi.
+- **Điều tôi học được từ phần việc này:** Hiểu rõ cách thiết kế guardrail ở cả tầng prompt và tầng schema, nhận thức được rủi ro khi model tự ý suy diễn dữ liệu người dùng không cung cấp.
+- **Nếu làm lại, tôi sẽ cải thiện điều gì:** Xây dựng thêm kịch bản kiểm thử tự động cho các luồng hủy bỏ hành động (cancellation) phức tạp hơn để đảm bảo tính nhất quán tuyệt đối.
+### Đàm Quang Sơn — 2A202602868
+- **Vai trò/phần việc được nhận:** Phụ trách kiểm thử mở rộng (Extension suite), đánh giá bảo mật (Adversarial suite), phối hợp thiết kế bộ 10 test case của nhóm (`eval_group.json`) và hoàn thiện báo cáo tổng kết `REPORT.md`.
+- **Những gì tôi đã thay đổi trong repo chung:**
+  - Đóng góp vào việc hoàn thiện và tinh chỉnh 10 test case trong `data/eval_group.json` bao phủ cả single-turn và multi-turn (từ G01 đến G10).
+  - Kiểm thử ranh giới bảo mật dữ liệu của tool `search_device_info`: đảm bảo chỉ gửi manufacturer/model ra web ngoài, tuyệt đối không gửi asset ID, serial hay telemetry nội bộ.
+  - Chạy thực nghiệm bộ `eval_adversarial.json` và `eval_helpdesk_extension.json`, kiểm tra tính toàn vẹn của thư mục `tickets/` để xác nhận không có file rác hoặc thông tin credential bị ghi xuống đĩa.
+  - Tham gia biên soạn các mục B3, B4a, B5 và hoàn thiện tài liệu `REPORT.md`.
+- **File hoặc artifact liên quan:** `data/eval_group.json`, `data/eval_adversarial.json`, `data/eval_helpdesk_extension.json`, `artifacts/REPORT.md`, `runs/v3_B_adversarial_openai_20260914T200030751844.json`, `runs/v3_B_extension_openai_20260914T193730272510.json`.
+- **Commit hash hoặc pull request:** Branch `868` / các commit cập nhật eval_group, adversarial evidence và hoàn thiện report.
 
 ## C3. Final checkout
 

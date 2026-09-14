@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Helpdesk Trace Lab</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+    :root { --ink:#182522; --muted:#69726c; --paper:#f5f1e8; --orange:#c95d38; --line:#d7d1c5; }
+    * { box-sizing:border-box; } body { margin:0; color:var(--ink); background:var(--paper); font-family:'Space Grotesk',sans-serif; }
+    main { min-height:100vh; padding:clamp(2rem,8vw,7rem) 8vw; display:grid; grid-template-columns:minmax(0,1fr) minmax(280px,460px); gap:8vw; align-items:center; }
+    .eyebrow { color:var(--orange); font:500 .78rem 'DM Mono'; letter-spacing:.1em; text-transform:uppercase; }
+    h1 { font-size:clamp(3.5rem,9vw,8.8rem); line-height:.86; letter-spacing:-.05em; margin:1rem 0 1.5rem; max-width:850px; }
+    p { color:var(--muted); max-width:560px; font-size:1.1rem; line-height:1.6; }
+    a { display:inline-block; margin-top:1.5rem; padding:1rem 1.25rem; color:#fff; background:var(--ink); text-decoration:none; border-radius:3px; }
+    .panel { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:1.5rem 0; }
+    .panel h2 { font-size:1rem; margin:0 0 1.25rem; } .row { display:flex; justify-content:space-between; gap:1rem; padding:.8rem 0; border-top:1px solid var(--line); color:var(--muted); }
+    .row strong { color:var(--ink); font:500 .82rem 'DM Mono'; text-align:right; }
+    @media (max-width:760px) { main { display:block; padding:3rem 1.5rem; } .panel { margin-top:4rem; } }
+  </style>
+</head>
+<body>
+  <main>
+    <section>
+      <div class="eyebrow">IT Helpdesk / trace console</div>
+      <h1>Ask clearly.<br>Audit everything.</h1>
+      <p>A small, evidence-first interface for the helpdesk agent. The live Streamlit console shows the request, final response, rounds, tool arguments, results, errors, artifact hashes, and transcript path.</p>
+      <a href="http://localhost:8501">Open the live console</a>
+    </section>
+    <section class="panel" aria-label="Console features">
+      <h2>What the console records</h2>
+      <div class="row"><span>Model loop</span><strong>shared with CLI</strong></div>
+      <div class="row"><span>Tool trace</span><strong>args + result</strong></div>
+      <div class="row"><span>Artifact evidence</span><strong>version + hashes</strong></div>
+      <div class="row"><span>Local transcript</span><strong>transcripts/*.json</strong></div>
+    </section>
+  </main>
+</body>
+</html>

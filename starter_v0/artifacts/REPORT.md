@@ -3,7 +3,7 @@
 ## Team
 
 - Team: M01
-- Members: Trần Hồng Sơn — 2A202602475; Đinh Đức Thái — 2A202602648; Đàm Quang Sơn — 2A202602868
+- Members: Trần Hồng Sơn — 2A202602475; Đinh Đức Thái — 2A202602648; Đàm Quang Sơn — 2A202602868; Hoàng Trung Hiếu - 2A202602945
 - Provider/model: OpenAI / `gpt-4o-mini`
 
 # PHẦN A — Giới thiệu agent
@@ -190,6 +190,16 @@ Nhóm đã hoàn thành toàn diện các mục tiêu của Lab Day 04:
   - Tham gia biên soạn các mục B3, B4a, B5 và hoàn thiện tài liệu `REPORT.md`.
 - **File hoặc artifact liên quan:** `data/eval_group.json`, `data/eval_adversarial.json`, `data/eval_helpdesk_extension.json`, `artifacts/REPORT.md`, `runs/v3_B_adversarial_openai_20260914T200030751844.json`, `runs/v3_B_extension_openai_20260914T193730272510.json`.
 - **Commit hash hoặc pull request:** Branch `868` / các commit cập nhật eval_group, adversarial evidence và hoàn thiện report.
+### Hoàng Trung Hiếu — 2A202602945
+- **Vai trò/phần việc được nhận:** Phụ trách xây dựng giao diện người dùng cho IT Helpdesk Agent, tích hợp Streamlit với `run_model_tool_loop`, thiết kế trang HTML giới thiệu và trình bày rõ trace để nhóm có thể demo, kiểm tra và audit hành vi tool của agent.
+- **Những gì tôi đã thay đổi trong repo chung:**
+  - Xây dựng giao diện Streamlit trong `starter_v0/app.py` cho phép chọn provider, artifact version, model, history window và số vòng gọi tool tối đa.
+  - Tích hợp UI với `run_model_tool_loop` dùng chung với CLI, không tạo agent loop riêng, đồng thời hiển thị user request, final response, status, round, tool name, args, tool result và error.
+  - Bổ sung cơ chế ghi transcript JSON sau mỗi lượt chat, bao gồm artifact version, prompt hash, tools hash, provider, model và đường dẫn transcript để làm evidence.
+  - Tạo `starter_v0/index.html` làm trang giới thiệu/host cho giao diện, tối ưu responsive và thêm liên kết mở live console tại `http://localhost:8501`.
+  - Bổ sung `streamlit>=1.30.0` vào `requirements.txt`, kiểm tra compile/import và chỉnh màu sắc evidence strip để artifact version và các hash dễ đọc trên cả giao diện sáng/tối.
+- **File hoặc artifact liên quan:** `app.py`, `index.html`, `requirements.txt`, `chat.py`, `versioning.py`, `transcripts/v3_live_chat_20260914T201627.transcript.json`, `artifacts/REPORT.md`.
+- **Commit hash hoặc pull request:** Commit cập nhật UI và tích hợp transcript trên branch `main`.
 
 ## C3. Final checkout
 

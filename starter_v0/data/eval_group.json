@@ -1,7 +1,196 @@
 {
   "dataset_id": "day04_v3_helpdesk_group",
   "dataset_role": "group",
-  "description": "Template intentionally left empty. The team must write exactly 10 original IT helpdesk cases: 5 single-turn query cases and 5 multi-turn turns cases.",
+  "description": "Original group evaluation dataset containing 10 cases (5 single-turn and 5 multi-turn) designed to test routing, argument extraction, missing-info clarification, confirmation boundaries, policy lookup, and multi-turn corrections.",
   "allowed_failure_types": ["wrong_tool", "wrong_arg_value", "wrong_boundary", "unnecessary_tool", "out_of_scope", "missing_info"],
-  "cases": []
+  "cases": [
+    {
+      "id": "G01_wifi_service_check",
+      "phase": "B",
+      "suite": "group",
+      "query": "Kiểm tra xem dịch vụ Wi-Fi hệ thống trên production hiện có hoạt động ổn định không?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "check_service_status", "args": {"service": "wifi", "environment": "production"}}
+        ]
+      },
+      "metadata": {
+        "skill": "route_shared_service",
+        "difficulty": "easy",
+        "what_it_tests": "Kiểm tra trạng thái Wi-Fi toàn hệ thống trên production bằng check_service_status."
+      }
+    },
+    {
+      "id": "G02_laptop_security_diagnostic",
+      "phase": "B",
+      "suite": "group",
+      "query": "Kiểm tra riêng phần bảo mật security của máy laptop LT-240 giúp mình.",
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "inspect_device", "args": {"asset_id": "LT-240", "check": "security"}}
+        ]
+      },
+      "metadata": {
+        "skill": "device_security_check",
+        "difficulty": "medium",
+        "what_it_tests": "Trích xuất đúng asset_id và check=security khi người dùng yêu cầu kiểm tra bảo mật thiết bị."
+      }
+    },
+    {
+      "id": "G03_missing_employee_lookup",
+      "phase": "B",
+      "suite": "group",
+      "query": "Tra cứu thông tin tài khoản và thiết bị được cấp của anh trưởng phòng Kỹ thuật.",
+      "failure_type": "missing_info",
+      "expect": {
+        "tool_calls": [
+          {"name": "clarify", "args": {"response_type": "text"}}
+        ]
+      },
+      "metadata": {
+        "skill": "clarify_missing_employee",
+        "difficulty": "medium",
+        "what_it_tests": "Khi thiếu employee_id cụ thể, bắt buộc phải gọi clarify để hỏi lại thay vì tự đoán."
+      }
+    },
+    {
+      "id": "G04_privacy_policy_inquiry",
+      "phase": "B",
+      "suite": "group",
+      "query": "Theo chính sách bảo mật thông tin nội bộ của công ty, các dữ liệu nhạy cảm như OTP và mã khôi phục được xử lý ra sao?",
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "policy", "args": {"policy_area": "data_privacy"}}
+        ]
+      },
+      "metadata": {
+        "skill": "policy_privacy_lookup",
+        "difficulty": "medium",
+        "what_it_tests": "Hỏi về quy định bảo mật mật khẩu và OTP phải định tuyến sang policy_area=data_privacy."
+      }
+    },
+    {
+      "id": "G05_out_of_scope_cooking",
+      "phase": "B",
+      "suite": "group",
+      "query": "Hướng dẫn mình cách làm món trà sữa trân xông đường đen tại nhà.",
+      "failure_type": "out_of_scope",
+      "expect": {
+        "no_tool": true,
+        "behavior": "refuse"
+      },
+      "metadata": {
+        "skill": "out_of_scope_handling",
+        "difficulty": "easy",
+        "what_it_tests": "Yêu cầu ngoài phạm vi IT Helpdesk phải từ chối lịch sự và không gọi bất kỳ tool nào."
+      }
+    },
+    {
+      "id": "G06_multiturn_correct_device",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra VPN trên máy LT-204."},
+        {"role": "user", "content": "À mình đọc nhầm mã, mã đúng là máy MacBook LT-318."},
+        {"role": "user", "content": "Chỉ kiểm tra phần VPN trên máy LT-318 đó thôi."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "inspect_device", "args": {"asset_id": "LT-318", "check": "vpn"}}
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_device_correction",
+        "difficulty": "hard",
+        "what_it_tests": "Nhận diện mã thiết bị đã được sửa ở lượt sau và giữ đúng check=vpn."
+      }
+    },
+    {
+      "id": "G07_multiturn_carry_staging_env",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Kiểm tra xem dịch vụ VPN trên môi trường staging có đang gặp lỗi không?"},
+        {"role": "user", "content": "Tiện thể kiểm tra luôn dịch vụ đăng nhập tập trung SSO."},
+        {"role": "user", "content": "Chỉ kiểm tra dịch vụ SSO trên đúng môi trường staging đó."}
+      ],
+      "failure_type": "wrong_arg_value",
+      "expect": {
+        "tool_calls": [
+          {"name": "check_service_status", "args": {"service": "sso", "environment": "staging"}}
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_carry_environment",
+        "difficulty": "hard",
+        "what_it_tests": "Đổi sang dịch vụ SSO nhưng kế thừa môi trường staging từ lượt thoại trước."
+      }
+    },
+    {
+      "id": "G08_multiturn_confirmed_ticket",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Soạn ticket lỗi kẹt giấy máy in PR-404 mức medium."},
+        {"role": "user", "content": "Đổi mức ưu tiên lên mức high giúp mình."},
+        {"role": "user", "content": "Thông tin chính xác rồi, tôi xác nhận tạo ticket."}
+      ],
+      "failure_type": "wrong_boundary",
+      "expect": {
+        "tool_calls": [
+          {"name": "create_ticket", "args": {"asset_id": "PR-404", "priority": "high", "confirmed": true}}
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_confirmed_write",
+        "difficulty": "hard",
+        "what_it_tests": "Thực hiện tạo ticket sau khi người dùng xác nhận rõ ràng với mức ưu tiên mới nhất."
+      }
+    },
+    {
+      "id": "G09_multiturn_cancel_ticket",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Tạo ticket sự cố Outlook bị treo trên LT-204."},
+        {"role": "user", "content": "Thôi mình vừa sửa được rồi, hủy bỏ và không tạo ticket nữa nhé."},
+        {"role": "user", "content": "Chỉ cần xác nhận là bạn đã nắm được yêu cầu hủy."}
+      ],
+      "failure_type": "unnecessary_tool",
+      "expect": {
+        "no_tool": true,
+        "behavior": "answer_without_tool"
+      },
+      "metadata": {
+        "skill": "multiturn_cancellation",
+        "difficulty": "hard",
+        "what_it_tests": "Tôn trọng yêu cầu hủy bỏ của người dùng, không gọi create_ticket hay clarify."
+      }
+    },
+    {
+      "id": "G10_multiturn_user_and_device",
+      "phase": "B",
+      "suite": "group",
+      "turns": [
+        {"role": "user", "content": "Mình cần hỗ trợ nhân viên EMP-1002."},
+        {"role": "user", "content": "Tra cứu hồ sơ của nhân viên này và kiểm tra mạng network trên laptop LT-240 của họ."}
+      ],
+      "failure_type": "wrong_tool",
+      "expect": {
+        "tool_calls": [
+          {"name": "lookup_user", "args": {"employee_id": "EMP-1002"}},
+          {"name": "inspect_device", "args": {"asset_id": "LT-240", "check": "network"}}
+        ]
+      },
+      "metadata": {
+        "skill": "multiturn_parallel_user_device",
+        "difficulty": "hard",
+        "what_it_tests": "Gọi song song lookup_user và inspect_device với check=network."
+      }
+    }
+  ]
 }

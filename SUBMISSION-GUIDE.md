@@ -107,11 +107,11 @@ nộp trên VLearn.
    nguồn, branch cá nhân, commit riêng hoặc pull request.
 
 :::checklist{title="Repository sẵn sàng để nộp" tone="success"}
-- [ ] Fork chung mở được bằng link dự định nộp.
-- [ ] `TEAMMATES.md` có đủ thành viên và MSSV.
-- [ ] Mỗi thành viên có ít nhất một commit đã được merge.
-- [ ] Các deliverable của Lab nằm trên branch nộp bài.
-- [ ] Repository không chứa secret hoặc dữ liệu thật.
+- [x] Fork chung mở được bằng link dự định nộp.
+- [x] `TEAMMATES.md` có đủ thành viên và MSSV.
+- [x] Mỗi thành viên có ít nhất một commit đã được merge.
+- [x] Các deliverable của Lab nằm trên branch nộp bài.
+- [x] Repository không chứa secret hoặc dữ liệu thật.
 :::
 
 Checkpoint của phần này là một URL repository duy nhất đã được cả nhóm kiểm

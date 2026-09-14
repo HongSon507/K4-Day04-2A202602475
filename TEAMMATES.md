@@ -4,10 +4,10 @@
 
 | Họ và tên | MSSV | GitHub Username | Vai trò chính |
 | :--- | :--- | :--- | :--- |
-| **Trần Hồng Sơn** | 2A202602475 | `HongSon507` | **Captain (Nhóm trưởng)** |
+| **Trần Hồng Sơn** | 2A202602475 | `HongSon507` | **Captain** |
 | **Đinh Đức Thái** | 2A202602648 | `ducthais` | **Member** |
 | **Đàm Quang Sơn** | 2A202602868 | `KuanqXol` | **Member** |
-| **Hoàng Trung Hiếu** | 2A202602945 | `hoangtrunghieu0025-lab` | **Member — UI/Frontend** |
+| **Hoàng Trung Hiếu** | 2A202602945 | `hoangtrunghieu0025-lab` | **Member** |
 
 ---
 
@@ -81,4 +81,4 @@ Quy trình phát triển và tối ưu hóa hệ thống IT Helpdesk Agent đư�
 - [x] Mỗi thành viên có ít nhất 1 commit riêng đã được merge vào branch nộp bài.
 - [x] Không commit file `.env`, API key, `.venv`, cache hay dữ liệu nhạy cảm.
 - [x] Toàn bộ artifact (`system_prompt.md`, `tools.yaml`, `version_log.csv`, `REPORT.md`) đã sẵn sàng.
-- [ ] Tất cả thành viên nộp cùng một link repository fork chung trên VLearn.
+- [x] Tất cả thành viên nộp cùng một link repository fork chung trên VLearn.
